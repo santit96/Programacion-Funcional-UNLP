@@ -68,3 +68,8 @@
           | not x = y
   --b
   alpha x y = y
+
+--ejercicio13
+  bhaskara:: Float->Float->Float->(Maybe Float,Maybe Float)
+  bhaskara a b c | (b*b-4*a*c)>=0 = (Just ((-b+sqrt (b*b-4*a*c))/2*a),Just ((-b+sqrt (b*b-4*a*c))/2*a)) 
+                 | (b*b-4*a*c)<0 = (Nothing,Nothing)
