@@ -14,8 +14,14 @@
     ej3_1a5 x y = x y + y
     --6
     ej3_1a6 x y z= x z y
+
 --ejercicio2
   --a funo está currificada
+  --b fdos está currificada
+  --c ftres no está currificada
+
+--ejercicio3
+  --f_operador## y = y##x
 
 --ejercicio5
   --a
@@ -31,10 +37,24 @@
   --fix::((a->b)->a->b)->a->b
     fix f x = f (fix f) x
   --b
-  --fork (fork,fork) (fork,fork):: 
+  --fork (fork,fork) (fork,fork)::((t1->t2,t1->t3)->(t1->(t2,t3),t1->(t2,t3)),(t1->t2,t1->t3)->(t1->(t2,t3),t1->(t2,t3))) 
   --fork::(a->b,a->c)->a->(b,c)
     fork (f,g) x = (f x,g x)
   --c
-  --apply apply apply:: ()
+  --apply apply apply:: (t1->t2)->t1->t2
   --apply::(a->b)->a->b
     apply f x = f x
+
+--ejercicio8
+  -- -2
+--ejercicio9
+    non_defined x = x+x+sqrt (-1)
+
+--ejercicio10
+  --a falsa
+  --b verdadera
+  --c falsa
+
+--ejercicio11
+    sumdigit:: Char->Int->Int
+    sumdigit x y = y
