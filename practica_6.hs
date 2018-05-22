@@ -30,3 +30,23 @@
   mapTip func (Join x y) = Join (mapTip func x) (mapTip func y)
 
 
+-- ejercicio 4 
+  data Seq a = Nil | Unit a | Cat (Seq a) (Seq a)
+
+  appSeq Nil x = x
+  appSeq x Nil = x
+  appSeq x y = Cat x y
+
+  conSeq x Nil = Unit x
+  conSeq x y =Cat (Unit x) y
+
+  lenSeq Nil = 0
+  lenSeq (Unit x)=1
+  lenSeq (Cat x y)=lenSeq x + lenSeq y
+
+  revSeq (Unit x)= Unit x
+  revSeq (Cat x y)= Cat (revSeq y) (revSeq x)
+
+  headSeq (Unit x)= x
+  headSeq (Cat x y)= if (x!=Nil) headSeq x else headSeq y
+    
