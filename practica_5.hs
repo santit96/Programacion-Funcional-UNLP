@@ -50,8 +50,38 @@
   --c falso, igual que a
   --d xs debería ser una lista vacía, y sería falsa, el resultado sería []:[]
   --e falso, se explicó en b
-  --f verdadero si xs es una lista vacía
+  --f verdadero 
   --g Verdadero en cualquier caso
   --i false
   --j verdadero
 
+--ejercicio 9
+--b
+  listaImpares []=[]
+  listaImpares x:xs= listaImpares xs ++ impares x
+
+  impares []=[]
+  impares x:xs= if ((mod x 2) == 1) then x:(impares xs) else impares xs
+
+--ejercicio 10
+--a
+  data DigitBin = Cero | Uno
+  suma_digBin x Cero= x
+  suma_digBin Cero y= y
+  suma_digBin x y= Cero
+
+  prod_digBin Uno Uno = Uno
+  prod_digBin x y = Cero
+
+  mod2_digBin x=x
+  carry:: DigitBin->DigitBin->DigitBin
+  carry Uno Uno= Uno
+  carry x y= Cero
+  data NumBin = [DigitBin]
+  sumaBin x:xs []= x:xs
+  sumaBin [] x:xs= y:ys
+  sumaBin x:xs y:ys= (suma_digBin x y):sumaBin (sumaBin xs [carry x y]) ys
+
+  doubleBin x= sumaBin x x
+  module2Bin x:xs= mod2_digBin x
+  div2 x:xs= xs
