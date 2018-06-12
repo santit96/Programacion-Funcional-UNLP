@@ -1,18 +1,19 @@
+  import Data.Char
 --ejercicio 1
   union:: [a]->[a]->[a]
   union x y= x++y
-  interseccion:: [a]->[a]->[a]
-  in:: a->[a]->Bool
-  in x []= False
-  in x y:ys= (x==y) || (in x ys)
+  interseccion:: [Int]->[Int]->[Int]
+  iN::Int->[Int]->Bool
+  iN x []= False
+  iN x (y:ys)= ( x == y ) || (iN x ys)
   interseccion [] ys=[]
-  interseccion x:xs ys= if (in x ys) then x:interseccion xs ys else interseccion xs ys
+  interseccion (x:xs) ys= if (iN x ys) then x:interseccion xs ys else interseccion xs ys
 
 --ejercicio 2
   data TipTree a= Tip a | Join (TipTree a) (TipTree a) 
-  heightTip::TipTree->Int    
+  heightTip::TipTree a->Int    
   heightTip (Tip a)=0
-  heightTip (Join x y) 1+max (heightTip x) (heightTip y)
+  heightTip (Join x y) = 1 + max (heightTip x) (heightTip y)
 
   leaves (Tip a)=1
   leaves (Join x y)= leaves x + leaves y
@@ -48,5 +49,18 @@
   revSeq (Cat x y)= Cat (revSeq y) (revSeq x)
 
   headSeq (Unit x)= x
-  headSeq (Cat x y)= if (x!=Nil) headSeq x else headSeq y
+  headSeq (Cat Nil y)= headSeq y
+  headSeq (Cat x y)= headSeq x
     
+--ejercicio 5
+  data Var = X | Y | Z deriving (Show) 
+  data Form = Atom | Or Form Form | Implies Form Form | Forall Var Form | Not Form | And Form Form | Iff Form Form | Exists Var Form deriving (Show) 
+  normalize::Form->Form
+  normalize Atom = Atom
+  normalize (Or x y)= Or (normalize x) (normalize y)
+  normalize (Implies x y)= Or (Not (normalize x)) (normalize y)
+  normalize (Forall x y)= Not ((Exists x)(Not (normalize y)))
+  normalize (Not x)=Not (normalize x)
+  normalize (And x y)= Or (Not (normalize x)) (Not (normalize y))
+  normalize (Iff x y)=Not (Or (Not (Or (Not (normalize x)) (normalize y))) (Not(Or (Not (normalize y)) (normalize y)) ) )
+  normalize (Exists x y)=Exists x (normalize y)
