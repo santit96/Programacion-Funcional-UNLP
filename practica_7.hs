@@ -44,3 +44,11 @@ dividesAny n s = (not (mod n s == 0)) && (dividesAny n (s-1))
 
 --ejercicio 4
 
+
+--ejercicio 5 
+takewhile::(a->Bool)->[a]->[a]
+takewhile c [] = []
+takewhile c (x:xs) = if ((length (segment c (x:xs))) > (length (takewhile c xs))) then segment c (x:xs) else takewhile c xs
+segment::(a->Bool)->[a]->[a]
+segment c [] = []
+segment c (x:xs)= if (c x) then x:(segment c xs) else []
