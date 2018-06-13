@@ -49,6 +49,33 @@ dividesAny n s = (not (mod n s == 0)) && (dividesAny n (s-1))
 takewhile::(a->Bool)->[a]->[a]
 takewhile c [] = []
 takewhile c (x:xs) = if ((length (segment c (x:xs))) > (length (takewhile c xs))) then segment c (x:xs) else takewhile c xs
+maxLength::[[a]]->[a]
+maxLength = foldr' (\x n -> if (length x) > (length n) then x else n) []
 segment::(a->Bool)->[a]->[a]
 segment c [] = []
 segment c (x:xs)= if (c x) then x:(segment c xs) else []
+dropwhile::(a->Bool)->[a]->[a]
+dropwhile c [] = []
+dropwhile c (x:xs) = if not (c x) then segment (not . c) (x:xs) else dropwhile c xs 
+
+{- ejercicio 6
+Hay que demostrar  map f (xs ++ ys) = map f xs ++ map f ys
+lo haremos por induccion estructural en la estructura de las listas
+- Caso Base xs=ys=[]
+map f ([] ++ [])
+=	por definicion de ++
+map f []
+=	por definicion de map
+[]
+=	por definicion de ++
+[] ++ []
+=	por definicion de map
+map f [] ++ map f []
+
+- Caso inductivo xs=x:xs' ys=y:ys'
+HI
+map f (xs' ++ ys')== map f xs' ++ map f ys'
+
+
+
+
