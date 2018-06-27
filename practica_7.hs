@@ -190,16 +190,100 @@ dropwhile c (x:xs) = if not (c x) then segment (not . c) (x:xs) else dropwhile c
 	Queda probada la tesis inductiva cuando p x=false
 	por lo tanto probamos que filter p (xs ++ ys) = filter p xs ++ filter p ys
 
+--d 
+	map (map f) . map (x:) = map ((f x):) . map (map f)
+	Por principio de extensionalidad vale lo anterior si y solo si
+	(map (map f) . map (x:)) xs = (map ((f x):) . map (map f)) xs
+	Demostraremos por induccion estructural en la estructura de las listas
+
+	Caso base: (map (map f) . map (x:))[] = (map ((f x):) . map (map f)) []
+	(map (map f) . map (x:))[]
+	=	por definicion de .
+	map (map f) (map (x:) [])
+	=	por definicion de map
+	map (map f) []
+	=	por definicion de map
+	[]
+	=	por definicion de map
+	map ((f x):) []
+	=	por definicion de map
+	map ((f x):) (map (map f) [])
+	=	por definicion de .
+	map ((f x):) . map (map f) []
+
+	Caso inductivo
+	HI: (map (map f) . map (x:)) xs' = (map ((f x):) . map (map f)) xs'
+	Tesis Inductiva: (map (map f) . map (x:)) x':xs' = (map ((f x):) . map (map f)) x':xs'
+	
+	(map (map f) . map (x:)) x':xs'
+	=	por definicion de .
+	 map (map f) (map (x:) x':xs')
+	=	por definicion de map
+	 map (map f) ((x:x'):map (x:) xs')
+	= 	por definicion de map
+	map f (x:x'): map (map f) (map (x:) xs')
+	=	por definicion de .
+	map f (x:x'): ((map (map f) . map (x:)) xs')
+	= 	por HI
+	map f (x:x'): ((map ((f x):) . map (map f)) xs')
+	=	por definicion de .
+	map f (x:x'): (map ((f x):) (map (map f) xs'))
 
 
+	map ((f x):) . map (map f)) x':xs'
+	=	por definicion de .
+	map ((f x):)  (map (map f) x':xs')
+	=	por definicion de map
+	map ((f x):) (map f x': map (map f) xs')
+	=	por definicion de map
+	((f x) : map f x') : map ((f x):) (map (map f) xs')
+	=	por definicion de .
+	((f x) : map f x') : ((map ((f x):) . map (map f)) xs')
+	=	por definicion de map
+	map f (x:x') : ((map ((f x):) . map (map f)) xs')
 
+--e
+	concat . map concat = concat . concat
+	Esto solo puede ocurrir si y solo si, por principio de extensionalidad
+	concat . map concat xs = concat . concat xs
 
+	Demostraremos que esto ocurre por induccion estructural en la estructura de las listas
+	caso Base: (concat . map concat) [] = (concat . concat) []
+	(concat . map concat) []
+	=	por definicion de .
+	concat (map concat [])
+	=	por definicion de map
+	concat []
+	=	por definicion de concat
+	concat (concat [])
+	=	por definicion de .
+	(concat . concat) []
 
+	Caso inductivo
+	HI: (concat . map concat) xs' = (concat . concat) xs'
+	Tesis inductiva: (concat . map concat) x:xs' = (concat . concat) x:xs'
 
+	(concat . map concat) x:xs'
+	=	por definicion de .
+	concat (map concat x:xs')
+	=	por definicion de map
+	concat (concat x : map concat xs)
+	=	por definicion de concat
+	concat x ++ concat (map concat xs)
+	= 	por definicion de .
+	concat x ++ (concat . map concat) xs
+	=	por HI
+	concat x ++ (concat . concat) xs
+	=	por definicion de .
+	concat x ++ concat (concat xs)
+	=	por definicion de concat
+	concat (concat x:concat xs )
 
-
-
-
+	(concat . concat) x:xs'
+	=	por definicion de .
+	concat (concat x:xs')
+	=	por definicion de concat
+	concat (x ++ concat xs')
 
 
 
